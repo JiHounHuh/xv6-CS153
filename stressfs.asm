@@ -55,7 +55,7 @@ main(int argc, char *argv[])
     if(fork() > 0)
   5b:	e8 fa 02 00 00       	call   35a <fork>
   60:	85 c0                	test   %eax,%eax
-  62:	0f 8f ca 00 00 00    	jg     132 <main+0x132>
+  62:	0f 8f d1 00 00 00    	jg     139 <main+0x139>
   for(i = 0; i < 4; i++)
   68:	83 c3 01             	add    $0x1,%ebx
   6b:	83 fb 04             	cmp    $0x4,%ebx
@@ -131,18 +131,15 @@ main(int argc, char *argv[])
  119:	89 3c 24             	mov    %edi,(%esp)
  11c:	e8 69 02 00 00       	call   38a <close>
 
-  wait();
- 121:	e8 44 02 00 00       	call   36a <wait>
+  wait(0);
+ 121:	c7 04 24 00 00 00 00 	movl   $0x0,(%esp)
+ 128:	e8 3d 02 00 00       	call   36a <wait>
 
   exit(0);
- 126:	c7 04 24 00 00 00 00 	movl   $0x0,(%esp)
- 12d:	e8 30 02 00 00       	call   362 <exit>
- 132:	89 df                	mov    %ebx,%edi
- 134:	e9 3c ff ff ff       	jmp    75 <main+0x75>
- 139:	66 90                	xchg   %ax,%ax
- 13b:	66 90                	xchg   %ax,%ax
- 13d:	66 90                	xchg   %ax,%ax
- 13f:	90                   	nop
+ 12d:	c7 04 24 00 00 00 00 	movl   $0x0,(%esp)
+ 134:	e8 29 02 00 00       	call   362 <exit>
+ 139:	89 df                	mov    %ebx,%edi
+ 13b:	e9 35 ff ff ff       	jmp    75 <main+0x75>
 
 00000140 <strcpy>:
 #include "user.h"

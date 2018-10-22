@@ -30,7 +30,7 @@ main(int argc, char *argv[])
   1b:	7e 6e                	jle    8b <main+0x8b>
   1d:	8d 76 00             	lea    0x0(%esi),%esi
     wc(0, "");
-    exit(0);
+    exit(-1);
   }
 
   for(i = 1; i < argc; i++){
@@ -80,8 +80,8 @@ main(int argc, char *argv[])
   92:	00 
   93:	c7 04 24 00 00 00 00 	movl   $0x0,(%esp)
   9a:	e8 11 00 00 00       	call   b0 <wc>
-    exit(0);
-  9f:	c7 04 24 00 00 00 00 	movl   $0x0,(%esp)
+    exit(-1);
+  9f:	c7 04 24 ff ff ff ff 	movl   $0xffffffff,(%esp)
   a6:	e8 17 03 00 00       	call   3c2 <exit>
   ab:	66 90                	xchg   %ax,%ax
   ad:	66 90                	xchg   %ax,%ax

@@ -24,7 +24,7 @@ main(void)
   12:	c7 04 24 f6 07 00 00 	movl   $0x7f6,(%esp)
   19:	e8 64 03 00 00       	call   382 <open>
   1e:	85 c0                	test   %eax,%eax
-  20:	0f 88 ba 00 00 00    	js     e0 <main+0xe0>
+  20:	0f 88 c0 00 00 00    	js     e6 <main+0xe6>
     mknod("console", 1, 1);
     open("console", O_RDWR);
   }
@@ -49,68 +49,65 @@ main(void)
     pid = fork();
   5b:	89 c3                	mov    %eax,%ebx
     if(pid < 0){
-  5d:	78 2d                	js     8c <main+0x8c>
+  5d:	78 33                	js     92 <main+0x92>
   5f:	90                   	nop
       printf(1, "init: fork failed\n");
       exit(-1);
     }
     if(pid == 0){
-  60:	74 4a                	je     ac <main+0xac>
+  60:	74 50                	je     b2 <main+0xb2>
   62:	8d b6 00 00 00 00    	lea    0x0(%esi),%esi
       exec("sh", argv);
       printf(1, "init: exec sh failed\n");
       exit(-1);
     }
-    while((wpid=wait()) >= 0 && wpid != pid)
-  68:	e8 dd 02 00 00       	call   34a <wait>
-  6d:	85 c0                	test   %eax,%eax
-  6f:	90                   	nop
-  70:	78 ce                	js     40 <main+0x40>
-  72:	39 d8                	cmp    %ebx,%eax
-  74:	74 ca                	je     40 <main+0x40>
+    while((wpid=wait(0)) >= 0 && wpid != pid)
+  68:	c7 04 24 00 00 00 00 	movl   $0x0,(%esp)
+  6f:	e8 d6 02 00 00       	call   34a <wait>
+  74:	85 c0                	test   %eax,%eax
+  76:	78 c8                	js     40 <main+0x40>
+  78:	39 d8                	cmp    %ebx,%eax
+  7a:	74 c4                	je     40 <main+0x40>
       printf(1, "zombie!\n");
-  76:	c7 44 24 04 3d 08 00 	movl   $0x83d,0x4(%esp)
-  7d:	00 
-  7e:	c7 04 24 01 00 00 00 	movl   $0x1,(%esp)
-  85:	e8 06 04 00 00       	call   490 <printf>
-  8a:	eb dc                	jmp    68 <main+0x68>
+  7c:	c7 44 24 04 3d 08 00 	movl   $0x83d,0x4(%esp)
+  83:	00 
+  84:	c7 04 24 01 00 00 00 	movl   $0x1,(%esp)
+  8b:	e8 00 04 00 00       	call   490 <printf>
+  90:	eb d6                	jmp    68 <main+0x68>
       printf(1, "init: fork failed\n");
-  8c:	c7 44 24 04 11 08 00 	movl   $0x811,0x4(%esp)
-  93:	00 
-  94:	c7 04 24 01 00 00 00 	movl   $0x1,(%esp)
-  9b:	e8 f0 03 00 00       	call   490 <printf>
+  92:	c7 44 24 04 11 08 00 	movl   $0x811,0x4(%esp)
+  99:	00 
+  9a:	c7 04 24 01 00 00 00 	movl   $0x1,(%esp)
+  a1:	e8 ea 03 00 00       	call   490 <printf>
       exit(-1);
-  a0:	c7 04 24 ff ff ff ff 	movl   $0xffffffff,(%esp)
-  a7:	e8 96 02 00 00       	call   342 <exit>
+  a6:	c7 04 24 ff ff ff ff 	movl   $0xffffffff,(%esp)
+  ad:	e8 90 02 00 00       	call   342 <exit>
       exec("sh", argv);
-  ac:	c7 44 24 04 c4 0a 00 	movl   $0xac4,0x4(%esp)
-  b3:	00 
-  b4:	c7 04 24 24 08 00 00 	movl   $0x824,(%esp)
-  bb:	e8 ba 02 00 00       	call   37a <exec>
+  b2:	c7 44 24 04 c4 0a 00 	movl   $0xac4,0x4(%esp)
+  b9:	00 
+  ba:	c7 04 24 24 08 00 00 	movl   $0x824,(%esp)
+  c1:	e8 b4 02 00 00       	call   37a <exec>
       printf(1, "init: exec sh failed\n");
-  c0:	c7 44 24 04 27 08 00 	movl   $0x827,0x4(%esp)
-  c7:	00 
-  c8:	c7 04 24 01 00 00 00 	movl   $0x1,(%esp)
-  cf:	e8 bc 03 00 00       	call   490 <printf>
+  c6:	c7 44 24 04 27 08 00 	movl   $0x827,0x4(%esp)
+  cd:	00 
+  ce:	c7 04 24 01 00 00 00 	movl   $0x1,(%esp)
+  d5:	e8 b6 03 00 00       	call   490 <printf>
       exit(-1);
-  d4:	c7 04 24 ff ff ff ff 	movl   $0xffffffff,(%esp)
-  db:	e8 62 02 00 00       	call   342 <exit>
+  da:	c7 04 24 ff ff ff ff 	movl   $0xffffffff,(%esp)
+  e1:	e8 5c 02 00 00       	call   342 <exit>
     mknod("console", 1, 1);
-  e0:	c7 44 24 08 01 00 00 	movl   $0x1,0x8(%esp)
-  e7:	00 
-  e8:	c7 44 24 04 01 00 00 	movl   $0x1,0x4(%esp)
-  ef:	00 
-  f0:	c7 04 24 f6 07 00 00 	movl   $0x7f6,(%esp)
-  f7:	e8 8e 02 00 00       	call   38a <mknod>
+  e6:	c7 44 24 08 01 00 00 	movl   $0x1,0x8(%esp)
+  ed:	00 
+  ee:	c7 44 24 04 01 00 00 	movl   $0x1,0x4(%esp)
+  f5:	00 
+  f6:	c7 04 24 f6 07 00 00 	movl   $0x7f6,(%esp)
+  fd:	e8 88 02 00 00       	call   38a <mknod>
     open("console", O_RDWR);
-  fc:	c7 44 24 04 02 00 00 	movl   $0x2,0x4(%esp)
- 103:	00 
- 104:	c7 04 24 f6 07 00 00 	movl   $0x7f6,(%esp)
- 10b:	e8 72 02 00 00       	call   382 <open>
- 110:	e9 11 ff ff ff       	jmp    26 <main+0x26>
- 115:	66 90                	xchg   %ax,%ax
- 117:	66 90                	xchg   %ax,%ax
- 119:	66 90                	xchg   %ax,%ax
+ 102:	c7 44 24 04 02 00 00 	movl   $0x2,0x4(%esp)
+ 109:	00 
+ 10a:	c7 04 24 f6 07 00 00 	movl   $0x7f6,(%esp)
+ 111:	e8 6c 02 00 00       	call   382 <open>
+ 116:	e9 0b ff ff ff       	jmp    26 <main+0x26>
  11b:	66 90                	xchg   %ax,%ax
  11d:	66 90                	xchg   %ax,%ax
  11f:	90                   	nop
