@@ -49,7 +49,7 @@ exitiputtest(void)
   pid = fork();
   if(pid < 0){
     printf(stdout, "fork failed\n");
-    exit();
+    exit(-1);
   }
   if(pid == 0){
     if(mkdir("iputdir") < 0){
