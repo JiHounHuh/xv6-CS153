@@ -25,10 +25,22 @@ sys_exit(void)
 int
 sys_wait(void)
 {
-  //char* status;
- // if(argptr(0, &status,8) < 0) return -1;
- // return wait((int *)status);
-  return wait();
+  char* status;
+  if (argptr(0, &status, 8) < 0) return -1;
+  return wait((int *)status);
+}
+
+int
+sys_waitpid(void) // basically a copy of sys_wait but with added argument handling
+{
+  int pid;
+  if (argint(0, &pid) < 0 ) return -1;
+  char* status;
+  if (argptr (0, &status, 8) < 0) return -1;
+  int option;
+  if (argint(0, &option) < 0 ) return -1;
+  return waitpid(pid, (int*) status, option);
+  //return waitpid(0,0,9);
 }
 
 int

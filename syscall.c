@@ -83,26 +83,27 @@ argstr(int n, char **pp)
 }
 
 extern int sys_chdir(void);
-extern int sys_close(void);
-extern int sys_dup(void);
-extern int sys_exec(void);
-extern int sys_exit(void);
-extern int sys_fork(void);
-extern int sys_fstat(void);
-extern int sys_getpid(void);
-extern int sys_kill(void);
-extern int sys_link(void);
-extern int sys_mkdir(void);
-extern int sys_mknod(void);
-extern int sys_open(void);
-extern int sys_pipe(void);
-extern int sys_read(void);
-extern int sys_sbrk(void);
-extern int sys_sleep(void);
-extern int sys_unlink(void);
-extern int sys_wait(void);
-extern int sys_write(void);
-extern int sys_uptime(void);
+extern int sys_close(void);// done
+extern int sys_dup(void);// done
+extern int sys_exec(void);// done
+extern int sys_exit(void);// done
+extern int sys_fork(void);// done
+extern int sys_fstat(void);// done
+extern int sys_getpid(void); // done
+extern int sys_kill(void);// done
+extern int sys_link(void);// done
+extern int sys_mkdir(void);// done
+extern int sys_mknod(void);// done
+extern int sys_open(void);// done
+extern int sys_pipe(void);// done
+extern int sys_read(void);// done
+extern int sys_sbrk(void);// done
+extern int sys_sleep(void);// done
+extern int sys_unlink(void);// done
+extern int sys_wait(void);// done
+extern int sys_write(void);// done
+extern int sys_uptime(void);// done
+extern int sys_waitpid(void);
 
 static int (*syscalls[])(void) = {
 [SYS_fork]    sys_fork,
@@ -126,6 +127,7 @@ static int (*syscalls[])(void) = {
 [SYS_link]    sys_link,
 [SYS_mkdir]   sys_mkdir,
 [SYS_close]   sys_close,
+[SYS_waitpid] sys_waitpid,
 };
 
 void
