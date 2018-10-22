@@ -34,11 +34,11 @@ int
 sys_waitpid(void) // basically a copy of sys_wait but with added argument handling
 {
   int pid;
-  if (argint(0, &pid) < 0 ) return -1;
+  if (argint(0, &pid) < 0 ) return 100;
   char* status;
-  if (argptr (0, &status, 8) < 0) return -1;
+  if (argptr (1, &status, 8) < 0) return 100;
   int option;
-  if (argint(0, &option) < 0 ) return -1;
+  if (argint(2, &option) < 0 ) return 100;
   return waitpid(pid, (int*) status, option);
   //return waitpid(0,0,9);
 }
