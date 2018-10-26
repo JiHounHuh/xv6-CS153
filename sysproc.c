@@ -108,7 +108,7 @@ sys_uptime(void)
 }
 
 int 
-sys_priority(void)
+sys_setpriority(void)
 {
     int priority_val, pid;
     

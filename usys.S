@@ -30,5 +30,5 @@ SYSCALL(sbrk)
 SYSCALL(sleep)
 SYSCALL(uptime)
 SYSCALL(waitpid)
-SYSCALL(priority)
+SYSCALL(setpriority)
 
