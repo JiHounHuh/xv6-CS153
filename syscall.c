@@ -103,8 +103,9 @@ extern int sys_unlink(void);// done
 extern int sys_wait(void);// done
 extern int sys_write(void);// done
 extern int sys_uptime(void);// done
-extern int sys_waitpid(void);//done
-extern int sys_changePriority(void);//done
+extern int sys_waitpid(void);
+extern int sys_priority(void);
+
 static int (*syscalls[])(void) = {
 [SYS_fork]    sys_fork,
 [SYS_exit]    sys_exit,
