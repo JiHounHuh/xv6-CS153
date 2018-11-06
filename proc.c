@@ -149,6 +149,8 @@ userinit(void)
   acquire(&ptable.lock);
 
   p->state = RUNNABLE;
+  p->priority = 0;
+
 
   release(&ptable.lock);
 }
@@ -215,6 +217,7 @@ fork(void)
   acquire(&ptable.lock);
 
   np->state = RUNNABLE;
+  np->priority = 0;
 
   release(&ptable.lock);
 
@@ -370,6 +373,7 @@ scheduler(void)
   for(;;){
     // Enable interrupts on this processor.
     sti();
+    for(int i = 0; i < 32; i++) {
 
     // Loop over process table looking for process to run.
     acquire(&ptable.lock);
@@ -393,6 +397,7 @@ scheduler(void)
     }
     release(&ptable.lock);
 
+  }
   }
 }
 
