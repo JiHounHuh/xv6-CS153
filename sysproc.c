@@ -110,11 +110,11 @@ sys_uptime(void)
 int 
 sys_setpriority(void)
 {
-    int priority_val;
+  int priority_val;
     
     if(argint(0, &priority_val) < 0)
         return -1;
 
-    return setpriority(priority_val);
+  return setpriority(priority_val);
 }
    

@@ -583,8 +583,7 @@ procdump(void)
     cprintf("\n");
   }
 }
-int
- _setpriority(struct proc* p, int priority) {
+int _setpriority(struct proc* p, int priority) {
      p->priority = priority;
      
      if (p->priority < 0) 
@@ -595,8 +594,7 @@ int
      return p->priority;
  }
 
-int
-setpriority(int priority)
+int setpriority(int priority)
 {
   struct proc *curproc = myproc();       
   return _setpriority(curproc, priority);
