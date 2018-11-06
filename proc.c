@@ -427,10 +427,10 @@ sched(void)
   mycpu()->intena = intena;
 }
 
-int setpriority(int)
-{
+// int setpriority(int)
+// {
 
-}
+// }
 
 // Give up the CPU for one scheduling round.
 void
