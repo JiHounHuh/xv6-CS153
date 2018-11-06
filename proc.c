@@ -369,15 +369,15 @@ scheduler(void)
   struct proc *p;
   struct cpu *c = mycpu();
   c->proc = 0;
-  
+  int i = 0; 
   for(;;){
     // Enable interrupts on this processor.
     sti();
-    for(int i = 0; i < 32; i++) {
+    for ( i = 0; i < 32; i++) {
 
     // Loop over process table looking for process to run.
     acquire(&ptable.lock);
-    for(p = ptable.proc; p < &ptable.proc[NPROC]; p++){
+    for (p = ptable.proc; p < &ptable.proc[NPROC]; p++){
       if(p->state != RUNNABLE)
         continue;
 
