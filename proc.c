@@ -311,7 +311,9 @@ wait(int* status)
     }
     // Wait for children to exit.  (See wakeup1 call in proc_exit.)
     sleep(curproc, &ptable.lock);  //DOC: wait-sleep
+    
   }
+  release(&ptable.lock);
 }
 
 int waitpid(int pid, int *status, int options){
