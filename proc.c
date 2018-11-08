@@ -311,9 +311,7 @@ wait(int* status)
     }
     // Wait for children to exit.  (See wakeup1 call in proc_exit.)
     sleep(curproc, &ptable.lock);  //DOC: wait-sleep
-    
   }
-  release(&ptable.lock);
 }
 
 int waitpid(int pid, int *status, int options){
@@ -372,14 +370,11 @@ scheduler(void)
   struct proc *a;
   struct cpu *c = mycpu();
   c->proc = 0;
-
   for(;;){
     // Enable interrupts on this processor.
     sti();
-     acquire(&ptable.lock);
- 
     // Loop over process table looking for process to run.
-     
+      acquire(&ptable.lock);
       for (p = ptable.proc; p < &ptable.proc[NPROC]; p++)
       {
         if(p->state != RUNNABLE)
@@ -414,8 +409,9 @@ scheduler(void)
       c->proc = 0;
       
       }
-  }
-  release(&ptable.lock);
+      release(&ptable.lock);
+    }
+
 }
 
 // Enter scheduler.  Must hold only ptable.lock
