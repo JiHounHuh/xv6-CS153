@@ -410,10 +410,10 @@ scheduler(void)
       swtch(&(c->scheduler), p->context);
       switchkvm();
       c->proc = 0;
-      release(&ptable.lock);
+      
       }
     }
-  
+  release(&ptable.lock);
   }
 }
 
@@ -443,10 +443,6 @@ sched(void)
   mycpu()->intena = intena;
 }
 
-// int setpriority(int)
-// {
-
-// }
 
 // Give up the CPU for one scheduling round.
 void
@@ -623,6 +619,6 @@ setpriority(int priority)
   acquire(&ptable.lock); // get the table of priorities
   struct proc*x = myproc(); // get proc
   x->priority = priority; // set current priority to value
-  release(&ptable.lock); // send back table;
+  release(&ptable.lock); // releases lock table;
   return 0;
 }
