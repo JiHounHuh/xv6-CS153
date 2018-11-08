@@ -376,10 +376,10 @@ scheduler(void)
   for(;;){
     // Enable interrupts on this processor.
     sti();
-    for ( i = 0; i < 32; i++) 
-    {
+     acquire(&ptable.lock);
+ 
     // Loop over process table looking for process to run.
-      acquire(&ptable.lock);
+     
       for (p = ptable.proc; p < &ptable.proc[NPROC]; p++)
       {
         if(p->state != RUNNABLE)
@@ -414,9 +414,8 @@ scheduler(void)
       c->proc = 0;
       
       }
-    }
-  release(&ptable.lock);
   }
+  release(&ptable.lock);
 }
 
 // Enter scheduler.  Must hold only ptable.lock
